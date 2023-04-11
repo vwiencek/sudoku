@@ -3,32 +3,32 @@ package org.example;
 import java.util.Arrays;
 
 public class Sudoku {
-    private Integer[][] s;
+    private Integer[][] board;
 
-    public Sudoku(Integer[][] values){
-        this.s = values;
+    public Sudoku(Integer[][] board){
+        this.board = board;
     }
 
     public boolean isMoveValid(int i, int j, int value){
         Integer[][] copy = new Integer[9][9];
-        System.arraycopy(s, 0, copy, 0, s.length);
+        System.arraycopy(board, 0, copy, 0, board.length);
 
-        copy[i-1][j-1]=value;
+        copy[i-1][j-1] = value;
         return new Sudoku(copy).isValid();
     }
 
     public boolean isValid(){
         boolean returnValue = true;
         for (int i = 0 ; i < 9 ; i ++){
-            if (!isListCorrect(s[i])){
+            if (!isListCorrect(board[i])){
                 System.out.println("   => row "+(i+1)+" is invalid");
                 returnValue = false;
             }
 
             if (!isListCorrect(new Integer[]{
-                    s[0][i],s[1][i],s[2][i],
-                    s[3][i],s[4][i],s[5][i],
-                    s[6][i],s[7][i],s[8][i]
+                    board[0][i],board[1][i],board[2][i],
+                    board[3][i],board[4][i],board[5][i],
+                    board[6][i],board[7][i],board[8][i]
             })) {
                 System.out.println("   => column "+(i+1)+" is invalid");
                 returnValue = false;
@@ -38,9 +38,9 @@ public class Sudoku {
         for (int i = 0 ; i < 3 ; i ++){
             for (int j = 0 ; j < 3 ; j ++){
                 if (!isListCorrect(new Integer[]{
-                        s[3 * i][3 * j], s[3 * i][3 * j + 1], s[3 * i][3 * j + 2],
-                        s[3 * i + 1][3 * j], s[3 * i + 1][3 * j + 1], s[3 * i + 1][3 * j + 2],
-                        s[3 * i + 2][3 * j], s[3 * i + 2][3 * j + 1], s[3 * i + 2][3 * j + 2]
+                        board[3 * i][3 * j], board[3 * i][3 * j + 1], board[3 * i][3 * j + 2],
+                        board[3 * i + 1][3 * j], board[3 * i + 1][3 * j + 1], board[3 * i + 1][3 * j + 2],
+                        board[3 * i + 2][3 * j], board[3 * i + 2][3 * j + 1], board[3 * i + 2][3 * j + 2]
                 })){
                     System.out.println("   => inner square ("+(i+1)+","+(j+1)+") is invalid");
                     returnValue = false;
@@ -54,11 +54,11 @@ public class Sudoku {
     public void display(){
         for (int i = 0 ; i < 9 ; i ++) {
             for (int j = 0; j < 9; j++) {
-                if (s[i][j] == 0){
+                if (board[i][j] == 0){
                     System.out.print(" . ");
                 }
                 else {
-                    System.out.print(" " + s[i][j]+ " ");
+                    System.out.print(" " + board[i][j]+ " ");
                 }
                 if (j % 3 == 2) System.out.print("  ");
             }
